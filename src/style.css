@@ -101,13 +101,13 @@ picture {
     background: linear-gradient(135deg, var(--gradient-from-button), var(--gradient-to-button));
     cursor: pointer;
     align-self: stretch;
+    box-shadow: 0 10px 10px 0px var(--Dark-Grayish-Red-shadow);
     transition: transform .2s;
 }
 
 .form__submit-button:hover {
     background: linear-gradient(var(--gradient-from-button), var(--gradient-from-button));
     transform: scale(1.1);
-    box-shadow: 0 10px 10px 0px var(--Dark-Grayish-Red-shadow);
 }
 
 
