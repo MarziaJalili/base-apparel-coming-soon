@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState } from "react"
 function App() {
-  const [count, setCount] = useState(0)
+    const [error, setError] = useState(false)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    function handleSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget.parentElement);
+
+        const emailCharacters = formData.get("email").split("");
+
+        const validEmail = emailCharacters.includes("@") && emailCharacters.includes(".") && emailCharacters.indexOf(".") > emailCharacters.indexOf("@");
+
+        if (!validEmail) {
+            setError(true)
+        } else {
+            setError(false)
+        }
+    }
+
+    return (
+        <main className="base-apparel-grid">
+            <img className="base-apparel-grid__logo" src="./images/logo.svg" alt="" />
+
+            <picture>
+                <source srcSet="./images/hero-desktop.jpg" media="(min-width: 31em)" />
+
+                <source srcSet="./images/hero-mobile.jpg" media="(max-width: 30.9em)" />
+
+                <img className="base-apparel-grid__hero" src="./images/hero-mobile.jpg" alt="hero-picture" />
+            </picture>
+
+            <section className="base-apparel-grid__main" style={error ? { marginBottom: "1.5rem" } : {}}>
+                <h1 className="base-apparel-grid__heading"><span>WE'RE</span> COMEING SOON</h1>
+
+                <p className="base-apparl-grid__description">
+                    Hello fellow shoppers! We're currently building our new fashion store. Add your email below to stay up-to-date with announcements and our launch deals.
+                </p>
+
+                <form className="base-apparel-grid__form" style={error ? { borderColor: "hsl(0, 93%, 68%)" } : {}}>
+                    <input required className="form__email-input" type="email" placeholder="Email Address" name="email" />
+                    {error ? <img src="./images/icon-error.svg" /> : null}
+                    <button className=" form__submit-button"
+                        onClick={handleSubmit}
+                        aria-label="Submit it form">
+                        <i aria-hidden="true"></i>
+                        <img src="./images/icon-arrow.svg" alt="icon-arrow" />
+                    </button>
+                </form>
+                {error ? <span className="error-message">Please provide a valid email.</span> : null}
+            </section>
+        </main>
+    )
 }
 
-export default App
+export default App;
