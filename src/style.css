@@ -121,7 +121,7 @@ picture {
     .base-apparel-grid {
         grid-template-columns: 1fr 575px;
         padding-block: 0;
-        /* gap: 4rem; */
+        gap: 0;
 
         &>*:not(picture) {
             padding-left: 10rem;
